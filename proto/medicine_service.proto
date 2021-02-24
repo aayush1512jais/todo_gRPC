@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package medicare.meds;
+
+option go_package = ".;pb";
+
+import "medicine.proto";
+
+message UploadImageRequest {
+  oneof data {
+    ImageInfo info = 1;
+    bytes chunkData = 2;
+  };
+}
+
+message UploadImageResponse {
+  string id = 1;
+  uint32 size = 2;
+}
+
+message CreateMedicineRequest { Medicine med = 1; }
+message CreateMedicineResponse { string id = 1; }
+message SearchMedicineRequest { Filter filter = 1; }
+message SearchMedicineResponse { Medicine med = 1; }
+
+service MedicineService {
+  rpc CreateMedicine(CreateMedicineRequest) returns (CreateMedicineResponse) {};
+  rpc SearchMedicine(SearchMedicineRequest)
+      returns (stream SearchMedicineResponse) {};
+  rpc UploadImage(stream UploadImageRequest) returns (UploadImageResponse) {};
+}

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package medicare.meds;
+
+option go_package = ".;pb";
+
+message Medicine {
+  string id = 1;
+  string name = 2;
+  string brand = 3;
+  uint32 quantity = 4;
+}
+
+message ImageInfo {
+  string medicineID = 1;
+  string imageType = 2;
+}
+
+message Filter { string brand = 1; }
